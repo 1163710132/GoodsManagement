@@ -1,8 +1,8 @@
 package edu.hit.software.se160132.entity;
 
-import edu.hit.software.se160132.entity.constraint.Counted;
 import edu.hit.software.se160132.entity.constraint.Identified;
 import edu.hit.software.se160132.entity.constraint.Mutable;
+import edu.hit.software.se160132.entity.constraint.Priced;
 import edu.hit.software.se160132.entity.constraint.SomeGoods;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -14,14 +14,15 @@ import java.time.Instant;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class StockItem implements SomeGoods, Identified, Counted, Mutable {
+public class StockItem implements SomeGoods, Identified, Mutable, Priced {
     @Id
     @GeneratedValue
     private Long id;
-    private Long stock;
     private Long goods;
     @PositiveOrZero
     private Integer amount;
+    private Long price;
+    private Long stock;
     @Version
     private Long version;
     @LastModifiedDate
@@ -95,5 +96,15 @@ public class StockItem implements SomeGoods, Identified, Counted, Mutable {
     @Override
     public void setLastModified(Instant lastModified) {
         this.lastModified = lastModified;
+    }
+
+    @Override
+    public Long getPrice() {
+        return price;
+    }
+
+    @Override
+    public void setPrice(Long price) {
+        this.price = price;
     }
 }

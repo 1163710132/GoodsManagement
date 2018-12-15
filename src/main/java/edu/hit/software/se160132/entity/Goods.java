@@ -1,7 +1,6 @@
 package edu.hit.software.se160132.entity;
 
 import edu.hit.software.se160132.entity.constraint.Described;
-import edu.hit.software.se160132.entity.constraint.Identified;
 import edu.hit.software.se160132.entity.constraint.Mutable;
 import edu.hit.software.se160132.entity.constraint.Named;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,7 +12,7 @@ import java.time.Instant;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Goods implements Mutable, Identified, Named, Described {
+public class Goods implements Mutable, Named, Described {
     @Id
     @GeneratedValue
     private Long id;

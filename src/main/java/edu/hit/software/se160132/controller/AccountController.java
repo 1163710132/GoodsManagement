@@ -1,7 +1,7 @@
 package edu.hit.software.se160132.controller;
 
 import edu.hit.software.se160132.entity.Account;
-import edu.hit.software.se160132.service.AccountService;
+import edu.hit.software.se160132.service.SecurityService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/account")
 public class AccountController implements Controller {
-    private final AccountService accountService;
+    private final SecurityService securityService;
 
     @Autowired
-    public AccountController(AccountService accountService) {
-        this.accountService = accountService;
+    public AccountController(SecurityService securityService) {
+        this.securityService = securityService;
     }
 
     @RequestMapping("/login")
@@ -33,7 +33,7 @@ public class AccountController implements Controller {
 
     @RequestMapping("/username")
     public String username(){
-        return getUid().map(accountService::getUsernameById).orElse(null);
+        return getUid().flatMap(securityService::findAccountById).map(Account::getUsername).orElse(null);
     }
 
     @RequestMapping("/uid")
@@ -44,7 +44,8 @@ public class AccountController implements Controller {
     @RequestMapping("/register")
     public Long register(String username, String password){
         try {
-            return accountService.register(username, password).map(Account::getId).orElse(null);
+            Account account = securityService.createAccount(username, password);
+            return account.getId();
         }catch (Exception e){
             e.printStackTrace();
             return null;

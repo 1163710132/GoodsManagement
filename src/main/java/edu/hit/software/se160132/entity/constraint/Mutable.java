@@ -2,9 +2,11 @@ package edu.hit.software.se160132.entity.constraint;
 
 import java.time.Instant;
 
-public interface Mutable extends Record{
-    public Long getVersion();
-    public void setVersion(Long version);
-    public Instant getLastModified();
-    public void setLastModified(Instant instant);
+public interface Mutable extends Identified {
+    Instant getCreated();
+    void setCreated(Instant created);
+    Instant getLastModified();
+    void setLastModified(Instant lastModified);
+    Long getVersion();
+    void setVersion(Long version);
 }

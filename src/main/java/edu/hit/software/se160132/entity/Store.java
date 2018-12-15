@@ -10,7 +10,7 @@ import java.time.Instant;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Store implements Identified, Named, Described, Mutable, Successor {
+public class Store implements Identified, Named, Described, Mutable {
     @Id
     @GeneratedValue
     private Long id;
@@ -20,8 +20,6 @@ public class Store implements Identified, Named, Described, Mutable, Successor {
     private Long version;
     @LastModifiedDate
     private Instant lastModified;
-    private Long precursor;
-    private EntityType precursorType;
     @CreatedDate
     private Instant created;
 
@@ -90,25 +88,5 @@ public class Store implements Identified, Named, Described, Mutable, Successor {
     @Override
     public void setLastModified(Instant lastModified) {
         this.lastModified = lastModified;
-    }
-
-    @Override
-    public Long getPrecursor() {
-        return precursor;
-    }
-
-    @Override
-    public void setPrecursor(Long precursor) {
-        this.precursor = precursor;
-    }
-
-    @Override
-    public EntityType getPrecursorType() {
-        return precursorType;
-    }
-
-    @Override
-    public void setPrecursorType(EntityType precursorType) {
-        this.precursorType = precursorType;
     }
 }

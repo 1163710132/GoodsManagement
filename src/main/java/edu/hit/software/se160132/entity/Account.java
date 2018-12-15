@@ -1,6 +1,5 @@
 package edu.hit.software.se160132.entity;
 
-import edu.hit.software.se160132.entity.constraint.Identified;
 import edu.hit.software.se160132.entity.constraint.Mutable;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -11,7 +10,7 @@ import java.time.Instant;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Account implements Mutable, Identified {
+public class Account implements Mutable {
     @Id
     @GeneratedValue
     private Long id;

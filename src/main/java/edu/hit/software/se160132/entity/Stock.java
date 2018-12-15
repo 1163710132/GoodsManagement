@@ -19,6 +19,7 @@ public class Stock implements Identified, Named, Described, Mutable {
     private Long id;
     private String name;
     private String description;
+    private Long store;
     @Version
     private Long version;
     @LastModifiedDate
@@ -91,5 +92,13 @@ public class Stock implements Identified, Named, Described, Mutable {
     @Override
     public void setLastModified(Instant lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public Long getStore() {
+        return store;
+    }
+
+    public void setStore(Long store) {
+        this.store = store;
     }
 }

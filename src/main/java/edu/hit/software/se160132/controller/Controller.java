@@ -1,10 +1,9 @@
 package edu.hit.software.se160132.controller;
 
-import edu.hit.software.se160132.security.Role;
+import edu.hit.software.se160132.entity.EntityType;
 import org.apache.shiro.SecurityUtils;
 
 import java.util.Optional;
-import java.util.OptionalLong;
 
 public interface Controller {
     default Optional<Long> getUid(){
@@ -19,7 +18,15 @@ public interface Controller {
         return SecurityUtils.getSubject().isAuthenticated();
     }
 
-    default boolean hasRole(Role role){
-        return SecurityUtils.getSubject().hasRole(role.name());
+    default boolean hasRole(int role){
+        return SecurityUtils.getSubject().hasRole(String.valueOf(role));
+    }
+
+    default Optional<Integer> getRole(Integer role) {
+        if(SecurityUtils.getSubject().hasRole(String.valueOf(role))){
+            return Optional.of(role);
+        }else{
+            return Optional.empty();
+        }
     }
 }

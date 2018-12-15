@@ -1,7 +1,9 @@
 package edu.hit.software.se160132.security;
 
 import edu.hit.software.se160132.entity.Account;
+import edu.hit.software.se160132.entity.EntityType;
 import edu.hit.software.se160132.entity.Permission;
+import edu.hit.software.se160132.entity.RoleType;
 import edu.hit.software.se160132.repository.AccountRepository;
 import edu.hit.software.se160132.repository.PermissionRepository;
 import org.apache.shiro.authc.*;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component("accountRealm")
@@ -30,13 +34,13 @@ public class AccountRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         Long id = (Long) principals.getPrimaryPrincipal();
-        authorizationInfo.addStringPermission(Role.ACCOUNT.name() + ":" + id);
-        EnumSet<Role> roles = EnumSet.noneOf(Role.class);
+        authorizationInfo.addStringPermission(EntityType.ACCOUNT + ":" + id);
+        Set<Integer> roles = new HashSet<>();
         permissionRepository.streamByAccountId(id).forEach(permission -> {
-            authorizationInfo.addStringPermission(permission.getRole() + ":" + permission.getTarget());
-            roles.add(permission.getRole());
+            authorizationInfo.addStringPermission(permission.getTargetType() + ":" + permission.getTarget());
+            roles.add(permission.getTargetType());
         });
-        authorizationInfo.addRoles(roles.stream().map(Role::name).collect(Collectors.toList()));
+        authorizationInfo.addRoles(roles.stream().map(Object::toString).collect(Collectors.toList()));
         return authorizationInfo;
     }
 

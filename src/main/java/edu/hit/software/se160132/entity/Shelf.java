@@ -1,6 +1,5 @@
 package edu.hit.software.se160132.entity;
 
-import edu.hit.software.se160132.entity.constraint.Identified;
 import edu.hit.software.se160132.entity.constraint.Mutable;
 import edu.hit.software.se160132.entity.constraint.Named;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,12 +11,13 @@ import java.time.Instant;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Shelf implements Identified, Mutable, Named {
+public class Shelf implements Mutable, Named {
     @Id
     @GeneratedValue
     private Long id;
     private Long store;
     private String name;
+    private String description;
     @Version
     private Long version;
     @LastModifiedDate
@@ -88,5 +88,13 @@ public class Shelf implements Identified, Mutable, Named {
     @Override
     public void setLastModified(Instant lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

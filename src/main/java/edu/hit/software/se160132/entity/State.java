@@ -1,5 +1,0 @@
-package edu.hit.software.se160132.entity;
-
-public enum State {
-    CREATING, CREATED, REQUESTING, REQUESTED, RESPONDING, RESPONDED, COMPLETING, COMPLETED, CANCELED
-}

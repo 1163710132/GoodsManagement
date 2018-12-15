@@ -12,27 +12,15 @@ import java.time.Instant;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Permission implements Immutable {
+public class Sale implements Immutable {
     @Id
     @GeneratedValue
     private Long id;
-    private Long target;
-    private Integer targetType;
-    private Long accountId;
+    private Long total;
     @CreatedDate
     private Instant created;
     private Long creator;
-
-    public Permission(){
-
-    }
-
-    public Permission(Long accountId, Integer targetType,  Long target,Long creator){
-        this.accountId = accountId;
-        this.creator = creator;
-        this.target = target;
-        this.targetType = targetType;
-    }
+    private Long customer;
 
     @Override
     public Long getId() {
@@ -42,6 +30,14 @@ public class Permission implements Immutable {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
     }
 
     @Override
@@ -64,27 +60,11 @@ public class Permission implements Immutable {
         this.creator = creator;
     }
 
-    public Long getAccountId() {
-        return accountId;
+    public Long getCustomer() {
+        return customer;
     }
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
-
-    public Long getTarget() {
-        return target;
-    }
-
-    public void setTarget(Long target) {
-        this.target = target;
-    }
-
-    public Integer getTargetType() {
-        return targetType;
-    }
-
-    public void setTargetType(Integer targetType) {
-        this.targetType = targetType;
+    public void setCustomer(Long customer) {
+        this.customer = customer;
     }
 }

@@ -5,30 +5,16 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import javax.swing.text.html.parser.Entity;
 
-public enum EntityType {
-    ACCOUNT,
-    GOODS,
-    PO_SET, PO,
-    SO_SET, SO,
-    SHELF, SHELF_DELIVER, SHELF_ITEM, SHELF_SUPPLY,
-    STOCK, STOCK_DELIVER, STOCK_ITEM, STOCK_SUPPLY,
-    STORE;
-
-    @JsonValue
-    public Integer getValue(){
-        return this.ordinal();
-    }
-
-    @JsonCreator
-    public static EntityType getByValue(Integer value){
-        if(value == null){
-            return null;
-        }
-        EntityType[] values = values();
-        if(values.length <= value || value < 0){
-            return null;
-        }else{
-            return values[value];
-        }
-    }
+public class EntityType {
+    public static final int STOCK_ITEM = 0;
+    public static final int SHELF_ITEM = 1;
+    public static final int SUPPLIER = 2;
+    public static final int CONSUMER = 3;
+    public static final int CART = 4;
+    public static final int BUYER = 5;
+    public static final int PURCHASE = 6;
+    public static final int MAIN = 7;
+    public static final int STOCK = 8;
+    public static final int SHELF = 9;
+    public static final int ACCOUNT = 10;
 }
